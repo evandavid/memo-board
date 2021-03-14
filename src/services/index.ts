@@ -59,18 +59,21 @@ const deleteIdea = async (id: string): Promise<boolean> => {
 
 const updateIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
   const { ideas } = await getIdea();
+  const { dispatch } = useIdeaDataContext();
 
   return new Promise((resolve) => {
     const selectedIndex = findWithAttr(ideas, 'id', item.id);
     const updatedIdeas = update(ideas, { [selectedIndex]: { $set: item } });
 
     set(LIST_KEY, updatedIdeas);
+    dispatch({ type: 'SET_IDEA_DETAILS', data: updatedIdeas });
     resolve(updatedIdeas);
   });
 };
 
 const addIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
   const { ideas } = await getIdea();
+  const { dispatch } = useIdeaDataContext();
 
   return new Promise((resolve) => {
     const id: any = uuidv4();
@@ -79,6 +82,7 @@ const addIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
     });
 
     set(LIST_KEY, updatedIdeas);
+    dispatch({ type: 'SET_IDEA_DETAILS', data: updatedIdeas });
     resolve(updatedIdeas);
   });
 };
