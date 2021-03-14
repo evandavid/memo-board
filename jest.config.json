@@ -1,0 +1,15 @@
+{
+  "roots": ["<rootDir>"],
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx)?$",
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "tsconfig.spec.json"
+    }
+  },
+  "setupFilesAfterEnv": ["./node_modules/jest-enzyme/lib/index.js"],
+  "setupFiles": ["<rootDir>/__tests__/enzyme.config.ts"]
+}
