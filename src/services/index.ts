@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import { get } from 'local-storage';
+import { get, set } from 'local-storage';
 import { v4 as uuidv4 } from 'uuid';
 import { useIdeaDataContext } from '../context/IdeaDataContext';
 import { IdeaDetail } from '../context/types';
@@ -19,25 +19,27 @@ const findWithAttr = (array: any[], attr: string, value: any): number => {
 const getIdea = (): Promise<{ ideas: IdeaDetail[] }> => {
   return new Promise((resolve) => {
     const ideas = get<IdeaDetail[]>(LIST_KEY);
+    const newIdeas = [
+      {
+        body: 'New Idea to be written',
+        title: 'New Idea',
+        id: uuidv4(),
+        createdAt: new Date(),
+      },
+      {
+        body: 'Second Idea to be written',
+        title: 'Second Idea',
+        id: uuidv4(),
+        createdAt: new Date(),
+      },
+    ];
 
-    if (!ideas || !ideas.length)
+    if (!ideas || !ideas.length) {
+      set(LIST_KEY, newIdeas);
       resolve({
-        ideas: [
-          {
-            body: 'New Idea to be written',
-            title: 'New Idea',
-            id: uuidv4(),
-            createdAt: new Date(),
-          },
-          {
-            body: 'Second Idea to be written',
-            title: 'Second Idea',
-            id: uuidv4(),
-            createdAt: new Date(),
-          },
-        ],
+        ideas: newIdeas,
       });
-    else resolve({ ideas });
+    } else resolve({ ideas });
   });
 };
 
@@ -48,6 +50,8 @@ const deleteIdea = async (id: string): Promise<boolean> => {
   return new Promise((resolve) => {
     const selectedIndex = findWithAttr(ideas, 'id', id);
     const newIdeas = update(ideas, { $splice: [[selectedIndex, 1]] });
+
+    set(LIST_KEY, newIdeas);
     dispatch({ type: 'SET_IDEA_DETAILS', data: newIdeas });
     resolve(true);
   });
@@ -59,6 +63,8 @@ const updateIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
   return new Promise((resolve) => {
     const selectedIndex = findWithAttr(ideas, 'id', item.id);
     const updatedIdeas = update(ideas, { [selectedIndex]: { $set: item } });
+
+    set(LIST_KEY, updatedIdeas);
     resolve(updatedIdeas);
   });
 };
@@ -71,6 +77,8 @@ const addIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
     const updatedIdeas = update<IdeaDetail[], any>(ideas, {
       $push: { ...item, id },
     });
+
+    set(LIST_KEY, updatedIdeas);
     resolve(updatedIdeas);
   });
 };

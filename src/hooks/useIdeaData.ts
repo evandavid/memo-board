@@ -1,11 +1,19 @@
 import { useEffect } from 'react';
 import { useIdeaDataContext } from '../context/IdeaDataContext';
 import { IdeaDetail } from '../context/types';
+import { getIdea } from '../services';
 
 const useIdeaData = (): { data: IdeaDetail[] } => {
-  const { data } = useIdeaDataContext();
+  const { data, dispatch } = useIdeaDataContext();
 
-  useEffect(() => {}, []);
+  const getInitialData = async () => {
+    const { ideas } = await getIdea();
+    dispatch({ type: 'SET_IDEA_DETAILS', data: ideas });
+  };
+
+  useEffect(() => {
+    getInitialData();
+  }, []);
 
   return {
     data,
