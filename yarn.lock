@@ -8132,6 +8132,11 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-inline-input@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-inline-input/-/react-inline-input-1.0.2.tgz#d7384cea5112b02ac76954e67f71640988bc3913"
+  integrity sha512-NzJ0CZMOk/ntESrf6Wx1pcjbLa4Rsl7AB/3sTASs/u/iz4m1cl55GxnDUINVWte78xHykOxH9f7wZQAzLhjFpw==
+
 react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8, react-is@^16.8.1, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

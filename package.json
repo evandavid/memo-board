@@ -16,6 +16,7 @@
     "local-storage": "^2.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-inline-input": "^1.0.2",
     "styled-components": "^5.2.1",
     "uuid": "^8.3.2"
   },
