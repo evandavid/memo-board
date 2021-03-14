@@ -5,7 +5,7 @@ import { IdeaDataProvider } from './context/IdeaDataContext';
 import GlobalStyle from './GlobalStyle';
 import useIdeaData from './hooks/useIdeaData';
 
-const App = () => {
+const App = ({ dispatch }: { dispatch?: any }) => {
   const { data } = useIdeaData();
 
   return (

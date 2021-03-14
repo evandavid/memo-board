@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
     html {
         background: #5BB9FC;
+        overflow-x: hidden
     }
 
     html, body, div, span, applet, object, iframe,
@@ -40,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
+        overflow-x: hidden
     }
     ol, ul {
         list-style: none;

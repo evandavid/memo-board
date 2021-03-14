@@ -1,14 +1,25 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { IdeaDetailsAction } from '../context/IdeaDataActions';
 import { useIdeaDataContext } from '../context/IdeaDataContext';
 import { IdeaDetail } from '../context/types';
-import { getIdea } from '../services';
+import IdeaService from '../services';
 
-const useIdeaData = (): { data: IdeaDetail[] } => {
+const useIdeaData = (
+  d?: any
+): { data: IdeaDetail[]; dispatch: React.Dispatch<IdeaDetailsAction> } => {
   const { data, dispatch } = useIdeaDataContext();
+  const localDispatch = d || dispatch;
+
+  const service = IdeaService();
 
   const getInitialData = async () => {
-    const { ideas } = await getIdea();
-    dispatch({ type: 'SET_IDEA_DETAILS', data: ideas });
+    try {
+      const { ideas } = await service.getIdea();
+      localDispatch({ type: 'SET_IDEA_DETAILS', data: ideas });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -17,6 +28,7 @@ const useIdeaData = (): { data: IdeaDetail[] } => {
 
   return {
     data,
+    dispatch,
   };
 };
 
