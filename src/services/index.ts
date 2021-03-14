@@ -16,6 +16,7 @@ const findWithAttr = (array: any[], attr: string, value: any): number => {
   return -1;
 };
 
+/** [GET] /ideas */
 const getIdea = (): Promise<{ ideas: IdeaDetail[] }> => {
   return new Promise((resolve) => {
     const ideas = get<IdeaDetail[]>(LIST_KEY);
@@ -43,6 +44,7 @@ const getIdea = (): Promise<{ ideas: IdeaDetail[] }> => {
   });
 };
 
+/** [DELETE] /idea/delete */
 const deleteIdea = async (id: string): Promise<boolean> => {
   const { ideas } = await getIdea();
   const { dispatch } = useIdeaDataContext();
@@ -57,6 +59,7 @@ const deleteIdea = async (id: string): Promise<boolean> => {
   });
 };
 
+/** [PUT] /idea/update */
 const updateIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
   const { ideas } = await getIdea();
   const { dispatch } = useIdeaDataContext();
@@ -71,19 +74,13 @@ const updateIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
   });
 };
 
-const addIdea = async (item: IdeaDetail): Promise<IdeaDetail[]> => {
-  const { ideas } = await getIdea();
-  const { dispatch } = useIdeaDataContext();
-
+/** [GET] /ideas/new */
+const addIdea = async (): Promise<{ id: string; createdAt: Date }> => {
   return new Promise((resolve) => {
     const id: any = uuidv4();
-    const updatedIdeas = update<IdeaDetail[], any>(ideas, {
-      $push: { ...item, id },
-    });
+    const createdAt: Date = new Date();
 
-    set(LIST_KEY, updatedIdeas);
-    dispatch({ type: 'SET_IDEA_DETAILS', data: updatedIdeas });
-    resolve(updatedIdeas);
+    resolve({ id, createdAt });
   });
 };
 

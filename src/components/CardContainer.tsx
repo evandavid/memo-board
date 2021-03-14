@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import useIdeaData from '../hooks/useIdeaData';
 
 const CardContainerElement = styled.div`
   position: relative;
@@ -11,6 +12,10 @@ const CardContainerElement = styled.div`
 `;
 
 const CardContainer = () => {
+  const { data } = useIdeaData();
+
+  console.log(data);
+
   return <CardContainerElement />;
 };
 
